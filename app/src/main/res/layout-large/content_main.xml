@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
     tools:context="fr.codevallee.formation.applicationsante.MainActivity">
 
     <fragment
         android:id="@+id/fragment_list_user"
-        android:layout_width="wrap_content"
-        android:layout_height="232dp"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
         android:name="fr.codevallee.formation.applicationsante.fragment.ListeUtilisateurFragment"
         tools:layout="@layout/fragment_liste_utilisateur"/>
 
     <fragment
         android:id="@+id/fragment_user"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:name="fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment"
         tools:layout="@layout/fragment_utilisateur"/>
 
