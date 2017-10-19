@@ -1,6 +1,8 @@
 package fr.codevallee.formation.applicationsante.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import fr.codevallee.formation.applicationsante.AddUserActivity;
+import fr.codevallee.formation.applicationsante.ModifyUserActivity;
 import fr.codevallee.formation.applicationsante.R;
 import fr.codevallee.formation.applicationsante.User;
 import fr.codevallee.formation.applicationsante.UserDAO;
 import fr.codevallee.formation.applicationsante.UserDataSource;
 
-public class UtilisateurFragment extends Fragment {
+public class UtilisateurFragment extends Fragment  {
 
     private TextView tvNomPrenom;
     private TextView tvSexe;
@@ -26,6 +30,15 @@ public class UtilisateurFragment extends Fragment {
 
     private Button buttonModifier;
     private Button buttonSupprimer;
+
+    private User userSelected;
+
+    //Communication avec la liste des utilisateurs:
+    UserDeleted mCallback;
+
+    public interface UserDeleted {
+        public void refresh();
+    }
 
     public static UtilisateurFragment newInstance() {
         UtilisateurFragment fragment = new UtilisateurFragment();
@@ -44,6 +57,18 @@ public class UtilisateurFragment extends Fragment {
             // Set article based on saved instance state defined during onCreateView
             updateArticleView(mCurrentPosition);
         }*/
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Pour la communication avec la liste
+        try {
+            mCallback = (UserDeleted) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()+"n'implémente pas l'interface UserDeleted");
+        }
     }
 
     @Override
@@ -66,7 +91,9 @@ public class UtilisateurFragment extends Fragment {
         buttonModifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO accés à la modification
+                Intent intent = new Intent(getActivity(), ModifyUserActivity.class);
+                intent.putExtra("user_id",userSelected.getId());
+                startActivity(intent);
             }
         });
 
@@ -74,9 +101,16 @@ public class UtilisateurFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO pop-up pour la confirmation de suppression
+
+
+                UserDataSource userDataSource = new UserDataSource(getContext());
+                UserDAO userDAO = new UserDAO(userDataSource);
+                userDAO.delete(userSelected.getId());
+
+                //Communication avec la liste:
+                mCallback.refresh();
             }
         });
-
 
         return view;
     }
@@ -85,14 +119,14 @@ public class UtilisateurFragment extends Fragment {
         //Récupération de la base de données et mise à jour de l'user:
         UserDataSource userDataSource = new UserDataSource(getContext());
         UserDAO userDAO = new UserDAO(userDataSource);
-        User user = userDAO.read(userId);
+        userSelected = userDAO.read(userId);
 
-        tvNomPrenom.setText(user.getNom() + " " + user.getPrenom());
-        tvSexe.setText(user.getSexe());
-        tvMetier.setText(user.getMetier());
-        tvService.setText(user.getService());
-        tvEmail.setText(user.getMail());
-        tvTel.setText(user.getTel());
-        tvCv.setText(user.getCV());
+        tvNomPrenom.setText(userSelected.getNom() + " " + userSelected.getPrenom());
+        tvSexe.setText(userSelected.getSexe());
+        tvMetier.setText(userSelected.getMetier());
+        tvService.setText(userSelected.getService());
+        tvEmail.setText(userSelected.getMail());
+        tvTel.setText(userSelected.getTel());
+        tvCv.setText(userSelected.getCV());
     }
 }

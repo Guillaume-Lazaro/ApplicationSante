@@ -16,7 +16,8 @@ import fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment;
 
 public class MainActivity extends AppCompatActivity
         implements ListeUtilisateurFragment.OnHeadlineSelectedListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        UtilisateurFragment.UserDeleted{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +106,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onUserSelected(int userId) {
-
-        Log.d("Test","j'ai appuyé sur un user!!");
-
         UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
 
         if (userFragment != null) {
@@ -126,6 +124,30 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
 
             transaction.commit();
+        }
+    }
+
+    @Override
+    public void refresh() {
+        Log.d("Test", "Je passe par le refresh de la main activity ");
+        ListeUtilisateurFragment listeUtilisateurFragment = (ListeUtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_list_user);
+
+        if (listeUtilisateurFragment != null) {
+            //Tablette:
+            listeUtilisateurFragment.refresh();
+        } else {
+            //Téléphone:
+            /*UtilisateurFragment newUserFragment = new UtilisateurFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", userId);
+            newUserFragment.setArguments(args);
+
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.fragment_container, newUserFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();*/
         }
     }
 }

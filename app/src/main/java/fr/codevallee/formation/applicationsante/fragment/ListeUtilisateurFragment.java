@@ -21,10 +21,21 @@ import fr.codevallee.formation.applicationsante.UserAdapter;
 import fr.codevallee.formation.applicationsante.UserDAO;
 import fr.codevallee.formation.applicationsante.UserDataSource;
 
-public class ListeUtilisateurFragment extends ListFragment {
+public class ListeUtilisateurFragment extends ListFragment implements UtilisateurFragment.UserDeleted {
 
     OnHeadlineSelectedListener mCallback;
     private ArrayList<User> listUser;
+
+    @Override
+    public void refresh() {
+        Log.d("Test", "Je passe par le refresh de la liste ");
+        UserDataSource userDataSource = new UserDataSource(getContext());
+        UserDAO userDAO = new UserDAO(userDataSource);
+
+        listUser = (ArrayList<User>) userDAO.readAll();
+        UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
+        setListAdapter(userAdapter);
+    }
 
     public interface OnHeadlineSelectedListener {
         public void onUserSelected(int position);
@@ -39,10 +50,10 @@ public class ListeUtilisateurFragment extends ListFragment {
         UserDAO userDAO = new UserDAO(userDataSource);
 
         //Remplissage test:
-        User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
-        User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
-        userDAO.create(user1);
-        userDAO.create(user2);
+        //User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
+        //User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
+        //userDAO.create(user1);
+        //userDAO.create(user2);
 
         listUser = (ArrayList<User>) userDAO.readAll();
         UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
@@ -67,9 +78,10 @@ public class ListeUtilisateurFragment extends ListFragment {
     public void onStart() {
         super.onStart();
 
-        /*if(getFragmentManager().findFragmentById(R.id.fragment_user) != null) {
+        //Si on est en mode tablette, on mette la liste en mode choix unique
+        if(getFragmentManager().findFragmentById(R.id.fragment_user) != null) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }*/
+        }
     }
 
     @Override

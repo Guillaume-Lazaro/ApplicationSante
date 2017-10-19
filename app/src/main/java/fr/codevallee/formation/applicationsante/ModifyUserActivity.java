@@ -3,6 +3,7 @@ package fr.codevallee.formation.applicationsante;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class ModifyUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -25,15 +27,17 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
     private EditText etMail;
     private EditText etTel;
     private EditText etCv;
-    private Button buttonAdd;
+    private Button buttonModify;
 
     private String[] arrayMetier;
     private String[] arrayService;
 
+    User userSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_user);
+        setContentView(R.layout.activity_modify_user);
 
         //Récupération des élements de l'interface:
         etNom = (EditText) findViewById(R.id.et_nom);
@@ -44,7 +48,7 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
         etMail = (EditText) findViewById(R.id.et_mail);
         etTel = (EditText) findViewById(R.id.et_tel);
         etCv = (EditText) findViewById(R.id.et_cv);
-        buttonAdd = (Button) findViewById(R.id.button_ajouter);
+        buttonModify = (Button) findViewById(R.id.button_modifier_valider);
 
         //ça c'est pour le radio button:
         int selectedId = radioSexeGroup.getCheckedRadioButtonId();
@@ -63,22 +67,53 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
         serviceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerService.setAdapter(serviceAdapter);
 
-        //Assignation d'une action au bouton d'ajout:
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        //Assignation d'une action au bouton de modification:
+        buttonModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (champsCorrects()) {
-                    createUser();
+                    modifyUser();
                     Intent intent = new Intent(ModifyUserActivity.this, MainActivity.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(ModifyUserActivity.this, getResources().getString(R.string.champ_incorrect), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        //On récupére l'user passé en argument
+        int userId = getIntent().getIntExtra("user_id",0);
+        UserDataSource userDataSource = new UserDataSource(this);
+        UserDAO userDAO = new UserDAO(userDataSource);
+        userSelected = userDAO.read(userId);
+        updateUserField();
     }
 
-    //Pour plus tard:
-    public void createUser() {
+    public void updateUserField() {
+        //On remplit les champs avec les informations de l'user récupéré:
+        etNom.setText(userSelected.getNom());
+        etPrenom.setText(userSelected.getPrenom());
+        actvMetier.setText(userSelected.getMetier());
+        etMail.setText(userSelected.getMail());
+        etTel.setText(userSelected.getTel());
+        etCv.setText(userSelected.getCV());
+
+        //Boucle pour comparer l'info en base de données au
+        int sexe=1;
+        for(int i=0 ; i<radioSexeGroup.getChildCount() ; i++) {
+            RadioButton rbCurrent = (RadioButton)radioSexeGroup.getChildAt(i);
+            Log.d("Test","Comparaison de "+rbCurrent.getText()+" et "+userSelected.getSexe());
+            if(rbCurrent.getText().equals(userSelected.getSexe())) {
+                sexe=i;
+            }
+        }
+        radioSexeGroup.check(radioSexeGroup.getChildAt(sexe).getId());
+        //spinnerService.set //TODO changer ça
+    }
+
+    public void modifyUser() {
         String nom,prenom,sexe,metier,service,mail,tel,cv;
+        int id = userSelected.getId();
         nom = etNom.getText().toString();
         prenom = etPrenom.getText().toString();
         sexe = radioSexeButton.getText().toString();
@@ -88,12 +123,12 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
         tel = etTel.getText().toString();
         cv = etCv.getText().toString();
 
-        User newUser = new User(nom,prenom,sexe,metier,service,mail,tel,cv);
+        User updateUser = new User(id,nom,prenom,sexe,metier,service,mail,tel,cv);
 
         //Insertion de l'objet newUser dans la base de données;
         UserDataSource userDataSource = new UserDataSource(this);
         UserDAO userDAO = new UserDAO(userDataSource);
-        userDAO.create(newUser);
+        userDAO.update(updateUser); //TODO changer ça!!!
     }
 
     public boolean champsCorrects() {
@@ -109,12 +144,21 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
             return false;
         else if (etMail.getText().toString().equals(""))
             return false;
+        else if (etCv.getText().toString().equals(""))
+            return false;
         else
             return true;
     }
 
     public boolean telCorrect() {
-        return true;
+        String regexStr = "^[0-9]{10}$";
+
+        if (etTel.getText().toString().matches(regexStr)) {
+            return true;
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.numero_incorrect), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     @Override

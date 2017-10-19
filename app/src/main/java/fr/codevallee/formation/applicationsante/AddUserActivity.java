@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 public class AddUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -72,6 +73,8 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
                     createUser();
                     Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(AddUserActivity.this, getResources().getString(R.string.champ_incorrect), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -110,12 +113,21 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
             return false;
         else if (etMail.getText().toString().equals(""))
             return false;
+        else if (etCv.getText().toString().equals(""))
+            return false;
         else
             return true;
     }
 
     public boolean telCorrect() {
-        return true;
+        String regexStr = "^[0-9]{10}$";
+
+        if (etTel.getText().toString().matches(regexStr)) {
+            return true;
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.numero_incorrect), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     @Override

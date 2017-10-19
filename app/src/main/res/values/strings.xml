@@ -28,6 +28,9 @@
     <string name="telephone">Téléphone</string>
     <string name="cv">CV</string>
 
+    <string name="numero_incorrect">Le numéro entré est incorrect</string>
+    <string name="champ_incorrect">Un des champs est vide ou incorrect</string>
+
     <string-array name="metiers">
         <item>Infirmier</item>
         <item>Médecin</item>
