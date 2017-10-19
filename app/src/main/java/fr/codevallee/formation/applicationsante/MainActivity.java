@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import fr.codevallee.formation.applicationsante.fragment.ListeUtilisateurFragment;
+import fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment;
 
 public class MainActivity extends AppCompatActivity
         implements ListeUtilisateurFragment.OnHeadlineSelectedListener,
@@ -103,20 +104,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void onUserSelected(int position) {
+    public void onUserSelected(int userId) {
 
         Log.d("Test","j'ai appuyé sur un user!!");
 
-        /*UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
+        UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
 
         if (userFragment != null) {
             //Tablette:
-            userFragment.updateUserView(position);
+            userFragment.updateUserView(userId);
         } else {
             //Téléphone:
             UtilisateurFragment newUserFragment = new UtilisateurFragment();
             Bundle args = new Bundle();
-            args.putInt("position", position);
+            args.putInt("position", userId);
             newUserFragment.setArguments(args);
 
             android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -125,6 +126,6 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
 
             transaction.commit();
-        }*/
+        }
     }
 }

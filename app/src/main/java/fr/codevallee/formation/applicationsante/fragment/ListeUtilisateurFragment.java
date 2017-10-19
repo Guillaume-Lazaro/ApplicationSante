@@ -24,6 +24,7 @@ import fr.codevallee.formation.applicationsante.UserDataSource;
 public class ListeUtilisateurFragment extends ListFragment {
 
     OnHeadlineSelectedListener mCallback;
+    private ArrayList<User> listUser;
 
     public interface OnHeadlineSelectedListener {
         public void onUserSelected(int position);
@@ -37,33 +38,15 @@ public class ListeUtilisateurFragment extends ListFragment {
         UserDataSource userDataSource = new UserDataSource(getContext());
         UserDAO userDAO = new UserDAO(userDataSource);
 
-        ////TEST
-        //Remplissage:
+        //Remplissage test:
         User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
         User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
-
-        /*final ArrayList<User> listUser = new ArrayList<>();
-        listUser.add(user1);
-        listUser.add(user2);*/
-
-        ////Jusque là
-
         userDAO.create(user1);
         userDAO.create(user2);
 
-
-        //ArrayList<String> listName = new ArrayList<>();
-        ArrayList<User> listUser = (ArrayList<User>) userDAO.readAll();
-
-        /*for (int i=0 ; i<listUser.size() ; i++) {
-            listName.add(i, listUser.get(i).getNom()+" "+listUser.get(i).getPrenom());
-        }*/
-
+        listUser = (ArrayList<User>) userDAO.readAll();
         UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
-
         setListAdapter(userAdapter);
-
-        Log.d("Test","Taille de la liste "+listUser.size());
     }
 
     @Override
@@ -98,7 +81,6 @@ public class ListeUtilisateurFragment extends ListFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO : ajouter l'accés à l'activity createUser
                 Intent intent = new Intent(getActivity(), AddUserActivity.class);
                 startActivity(intent);
             }
@@ -110,6 +92,7 @@ public class ListeUtilisateurFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // Send the event to the host activity
-        mCallback.onUserSelected(position);
+        User userSelected = listUser.get(position);     //Récupération de l'user sélectionné
+        mCallback.onUserSelected(userSelected.getId()); //Envoi de l'id de l'user sélectionné au fragment d'affichage
     }
 }

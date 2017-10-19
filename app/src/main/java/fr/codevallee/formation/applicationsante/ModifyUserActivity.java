@@ -1,6 +1,5 @@
 package fr.codevallee.formation.applicationsante;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 
-public class AddUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ModifyUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText etNom;
     private EditText etPrenom;
@@ -70,7 +69,7 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
                 if (champsCorrects()) {
                     createUser();
-                    Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
+                    Intent intent = new Intent(ModifyUserActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }

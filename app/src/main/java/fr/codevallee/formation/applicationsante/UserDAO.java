@@ -86,6 +86,7 @@ public class UserDAO {
         lib.getDB().delete(TABLE_NAME, clause, clauseArgs);
     }
 
+    @Deprecated //Ne fonctionne pas et a été remplace par read(int userId)
     public User read(User user) { //TODO fix cette methode
         //Définition des colonnes utilisés:
         String[] allColumns = new String[]{COL_ID, COL_NOM, COL_PRENOM, COL_SEXE, COL_METIER, COL_SERVICE,COL_MAIL,COL_TEL,COL_CV};
@@ -106,6 +107,27 @@ public class UserDAO {
         user.setMail(cursor.getString(6));
         user.setTel(cursor.getString(7));
         user.setCV(cursor.getString(8));
+        cursor.close();
+
+        return user;
+    }
+
+    public User read(int userId) {
+        //Définition des colonnes utilisés:
+        String[] allColumns = new String[]{COL_ID, COL_NOM, COL_PRENOM, COL_SEXE, COL_METIER, COL_SERVICE,COL_MAIL,COL_TEL,COL_CV};
+
+        //Création de la clause where pour la requéte SELECT
+        String clause = COL_ID + " = ?";
+        String[] clauseArgs = new String[]{String.valueOf(userId)};
+
+        Cursor cursor = lib.getDB().query(TABLE_NAME, allColumns, clause, clauseArgs, null, null, null);
+
+        //On lit le cursor récupéré:
+        cursor.moveToFirst();
+
+        User user = new User(cursor.getInt(0), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)
+                , cursor.getString(6), cursor.getString(7), cursor.getString(8));
         cursor.close();
 
         return user;

@@ -29,7 +29,7 @@ public class UserAdapter extends ArrayAdapter<User> {
         UserViewHolder viewHolder = (UserViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new UserViewHolder();
-            viewHolder.nom_prenom = (TextView) convertView.findViewById(R.id.tv_nom_prenom);
+            viewHolder.nom_prenom = (TextView) convertView.findViewById(R.id.tv_nom_prenom_adapter);
             viewHolder.service = (TextView) convertView.findViewById(R.id.tv_service);
             viewHolder.metier = (TextView) convertView.findViewById(R.id.tv_metier);;
             convertView.setTag(viewHolder);
