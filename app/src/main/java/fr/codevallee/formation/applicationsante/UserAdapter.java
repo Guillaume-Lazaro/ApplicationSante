@@ -19,18 +19,18 @@ public class UserAdapter extends ArrayAdapter<User> {
         super(context, 0, users);
     }
 
-    /*@Override
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_user,parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_user,parent, false);
         }
 
         UserViewHolder viewHolder = (UserViewHolder) convertView.getTag();
         if(viewHolder == null){
             viewHolder = new UserViewHolder();
             viewHolder.nom_prenom = (TextView) convertView.findViewById(R.id.tv_nom_prenom);
-            viewHolder.age = (TextView) convertView.findViewById(R.id.tv_age);
+            viewHolder.service = (TextView) convertView.findViewById(R.id.tv_service);
             viewHolder.metier = (TextView) convertView.findViewById(R.id.tv_metier);;
             convertView.setTag(viewHolder);
         }
@@ -40,15 +40,15 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         //Remplissage des views:
         viewHolder.nom_prenom.setText(user.getNom()+" "+user.getPrenom());
-        viewHolder.age.setText(user.getAge()+" ans");
+        viewHolder.service.setText(user.getService());
         viewHolder.metier.setText(user.getMetier());
 
         return convertView;
-    }*/
+    }
 
     private class UserViewHolder{
         public TextView nom_prenom;
-        public TextView age;
+        public TextView service;
         public TextView metier;
     }
 

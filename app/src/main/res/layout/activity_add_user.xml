@@ -1,0 +1,101 @@
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="fr.codevallee.formation.applicationsante.AddUserActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ajouter_un_utilisateur"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/et_nom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nom"
+        android:textSize="20sp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/et_prenom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prenom"
+        android:textSize="20sp"
+        android:inputType="text"/>
+
+    <RadioGroup
+        android:id="@+id/radio_sexe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homme"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radio_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/femme" />
+
+        <RadioButton
+            android:id="@+id/radio_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/autre" />
+    </RadioGroup>
+
+    <AutoCompleteTextView
+        android:id="@+id/actv_metier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="@string/metier"/>
+
+    <Spinner
+        android:id="@+id/spinner_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/service"/>
+
+    <EditText
+        android:id="@+id/et_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:textSize="20sp"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/et_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/telephone"
+        android:textSize="20sp"
+        android:inputType="phone"/>
+
+    <EditText
+        android:id="@+id/et_cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cv"
+        android:textSize="20sp"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/button_ajouter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ajouter"
+        android:textSize="25sp"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

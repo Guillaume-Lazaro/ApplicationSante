@@ -2,28 +2,24 @@ package fr.codevallee.formation.applicationsante.fragment;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import fr.codevallee.formation.applicationsante.MainActivity;
+import fr.codevallee.formation.applicationsante.AddUserActivity;
 import fr.codevallee.formation.applicationsante.R;
 import fr.codevallee.formation.applicationsante.User;
 import fr.codevallee.formation.applicationsante.UserAdapter;
-
-import static fr.codevallee.formation.applicationsante.R.id.toolbar;
+import fr.codevallee.formation.applicationsante.UserDAO;
+import fr.codevallee.formation.applicationsante.UserDataSource;
 
 public class ListeUtilisateurFragment extends ListFragment {
 
@@ -37,23 +33,37 @@ public class ListeUtilisateurFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*
+        //Création de la base et du DAO :
+        UserDataSource userDataSource = new UserDataSource(getContext());
+        UserDAO userDAO = new UserDAO(userDataSource);
+
+        ////TEST
         //Remplissage:
-        User user1 = new User("Jean","Patrick",26,"Menuisier");
-        User user2 = new User("Lazaro","Guillaume",24,"Chomeur");
+        User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
+        User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
 
-        final ArrayList<User> listUser = new ArrayList<>();
+        /*final ArrayList<User> listUser = new ArrayList<>();
         listUser.add(user1);
-        listUser.add(user2);
+        listUser.add(user2);*/
 
-        ArrayList<String> listName = new ArrayList<>();
-        for (int i=0 ; i<listUser.size() ; i++) {
+        ////Jusque là
+
+        userDAO.create(user1);
+        userDAO.create(user2);
+
+
+        //ArrayList<String> listName = new ArrayList<>();
+        ArrayList<User> listUser = (ArrayList<User>) userDAO.readAll();
+
+        /*for (int i=0 ; i<listUser.size() ; i++) {
             listName.add(i, listUser.get(i).getNom()+" "+listUser.get(i).getPrenom());
-        }
+        }*/
 
         UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
 
-        setListAdapter(userAdapter);*/
+        setListAdapter(userAdapter);
+
+        Log.d("Test","Taille de la liste "+listUser.size());
     }
 
     @Override
@@ -84,22 +94,15 @@ public class ListeUtilisateurFragment extends ListFragment {
 
         View view = inflater.inflate(R.layout.fragment_liste_utilisateur, container, false);
 
-
-        /* deprecated
-        //Toolbar:
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
-        //Action Bar:
-        DrawerLayout drawer = (DrawerLayout) view.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(((AppCompatActivity)getActivity())); //Chelou
-        */
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO : ajouter l'accés à l'activity createUser
+                Intent intent = new Intent(getActivity(), AddUserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

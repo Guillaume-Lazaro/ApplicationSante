@@ -8,31 +8,31 @@ public class User {
     private int id;
     private String nom;
     private String prenom;
-    private boolean isMale; //Sexe
+    private String sexe; //Sexe
     private String metier;
-    private String spinner;
+    private String service;
     private String mail;
     private String tel;
     private String CV;
 
-    public User(int id, String nom, String prenom, boolean isMale, String metier, String spinner, String mail, String tel, String CV) {
+    public User(int id, String nom, String prenom, String sexe, String metier, String service, String mail, String tel, String CV) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.isMale = isMale;
+        this.sexe = sexe;
         this.metier = metier;
-        this.spinner = spinner;
+        this.service = service;
         this.mail = mail;
         this.tel = tel;
         this.CV = CV;
     }
 
-    public User(String nom, String prenom, boolean isMale, String metier, String spinner, String mail, String tel, String CV) {
+    public User(String nom, String prenom, String sexe, String metier, String service, String mail, String tel, String CV) {
         this.nom = nom;
         this.prenom = prenom;
-        this.isMale = isMale;
+        this.sexe = sexe;
         this.metier = metier;
-        this.spinner = spinner;
+        this.service = service;
         this.mail = mail;
         this.tel = tel;
         this.CV = CV;
@@ -62,12 +62,12 @@ public class User {
         this.prenom = prenom;
     }
 
-    public boolean isMale() {
-        return isMale;
+    public String getSexe() {
+        return sexe;
     }
 
-    public void setMale(boolean male) {
-        isMale = male;
+    public void setSexe(String male) {
+        sexe = male;
     }
 
     public String getMetier() {
@@ -78,12 +78,12 @@ public class User {
         this.metier = metier;
     }
 
-    public String getSpinner() {
-        return spinner;
+    public String getService() {
+        return service;
     }
 
-    public void setSpinner(String spinner) {
-        this.spinner = spinner;
+    public void setService(String service) {
+        this.service = service;
     }
 
     public String getMail() {

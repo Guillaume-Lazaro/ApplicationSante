@@ -18,4 +18,25 @@
     <string name="ok">OK</string>
     <string name="modifier">Modifier</string>
     <string name="supprimer">Supprimer</string>
+    <string name="ajouter">ajouter</string>
+    <string name="service">Service</string>
+    <string name="sexe">Sexe</string>
+    <string name="homme">Homme</string>
+    <string name="femme">Femme</string>
+    <string name="autre">Autre</string>
+    <string name="email">Email</string>
+    <string name="telephone">Téléphone</string>
+    <string name="cv">CV</string>
+
+    <string-array name="metiers">
+        <item>Infirmier</item>
+        <item>Médecin</item>
+        <item>Brancardier</item>
+        <item>Aide-Soignant</item>
+    </string-array>
+
+    <string-array name="services">
+        <item>Neurologie</item>
+        <item>Cardiologie</item>
+    </string-array>
 </resources>
