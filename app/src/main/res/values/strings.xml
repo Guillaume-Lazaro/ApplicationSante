@@ -30,6 +30,8 @@
 
     <string name="numero_incorrect">Le numéro entré est incorrect</string>
     <string name="champ_incorrect">Un des champs est vide ou incorrect</string>
+    <string name="options">Options</string>
+    <string name="aide">Aide</string>
 
     <string-array name="metiers">
         <item>Infirmier</item>

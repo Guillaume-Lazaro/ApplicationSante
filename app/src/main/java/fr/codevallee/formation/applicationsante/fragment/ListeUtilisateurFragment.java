@@ -28,7 +28,6 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
 
     @Override
     public void refresh() {
-        Log.d("Test", "Je passe par le refresh de la liste ");
         UserDataSource userDataSource = new UserDataSource(getContext());
         UserDAO userDAO = new UserDAO(userDataSource);
 
@@ -103,6 +102,8 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+        Log.d("Test","l="+l.toString()+" et v="+v.toString()+ " et pos="+position);
+
         // Send the event to the host activity
         User userSelected = listUser.get(position);     //Récupération de l'user sélectionné
         mCallback.onUserSelected(userSelected.getId()); //Envoi de l'id de l'user sélectionné au fragment d'affichage

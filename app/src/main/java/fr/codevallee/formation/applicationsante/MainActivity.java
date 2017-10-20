@@ -86,17 +86,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        if (id == R.id.nav_options) {
 
         }
 
@@ -129,7 +119,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void refresh() {
-        Log.d("Test", "Je passe par le refresh de la main activity ");
         ListeUtilisateurFragment listeUtilisateurFragment = (ListeUtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_list_user);
 
         if (listeUtilisateurFragment != null) {
@@ -137,17 +126,14 @@ public class MainActivity extends AppCompatActivity
             listeUtilisateurFragment.refresh();
         } else {
             //Téléphone:
-            /*UtilisateurFragment newUserFragment = new UtilisateurFragment();
-            Bundle args = new Bundle();
-            args.putInt("position", userId);
-            newUserFragment.setArguments(args);
+            listeUtilisateurFragment = new ListeUtilisateurFragment();
 
             android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-            transaction.replace(R.id.fragment_container, newUserFragment);
+            transaction.replace(R.id.fragment_container, listeUtilisateurFragment);
             transaction.addToBackStack(null);
 
-            transaction.commit();*/
+            transaction.commit();
         }
     }
 }

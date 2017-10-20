@@ -85,7 +85,11 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
         String nom,prenom,sexe,metier,service,mail,tel,cv;
         nom = etNom.getText().toString();
         prenom = etPrenom.getText().toString();
-        sexe = radioSexeButton.getText().toString();
+
+        int rbSelectedId = radioSexeGroup.getCheckedRadioButtonId();    //Ici, on récupére l'id du radiobutton séléctionné
+        radioSexeButton = (RadioButton) findViewById(rbSelectedId);     //afin de pouvoir récupérer le bon radiobutton
+        sexe = radioSexeButton.getText().toString();                    //et enfin de récupérer la chaine correspondante
+
         metier = actvMetier.getText().toString();
         service = spinnerService.getSelectedItem().toString();
         mail = etMail.getText().toString();
