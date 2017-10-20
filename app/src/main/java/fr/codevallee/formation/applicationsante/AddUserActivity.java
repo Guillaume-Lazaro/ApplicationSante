@@ -78,8 +78,9 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
                 if (champsCorrects()) {
                     createUser();
-                    Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
+                    //startActivity(intent);
+                    AddUserActivity.this.onBackPressed();
                 } else {
                     Toast.makeText(AddUserActivity.this, getResources().getString(R.string.champ_incorrect), Toast.LENGTH_SHORT).show();
                 }
