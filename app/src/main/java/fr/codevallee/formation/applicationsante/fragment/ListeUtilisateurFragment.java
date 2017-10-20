@@ -43,6 +43,7 @@ public class ListeUtilisateurFragment extends ListFragment implements Navigation
 
     public interface OnHeadlineSelectedListener {
         public void onUserSelected(int userId);
+        public void noUserSelected();
     }
 
     @Override
@@ -56,12 +57,10 @@ public class ListeUtilisateurFragment extends ListFragment implements Navigation
         //Remplissage test:
         User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
         User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
-        userDAO.create(user1);
-        userDAO.create(user2);
+        //userDAO.create(user1);
+        //userDAO.create(user2);
 
-        listUser = (ArrayList<User>) userDAO.readAll();
-        UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
-        setListAdapter(userAdapter);
+        refresh();
     }
 
     @Override
@@ -102,9 +101,9 @@ public class ListeUtilisateurFragment extends ListFragment implements Navigation
             }
         });
 
-        //Ouiiiiiii!!!!!
         this.toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
 
         /*
         DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout_main);
@@ -135,7 +134,16 @@ public class ListeUtilisateurFragment extends ListFragment implements Navigation
         setListAdapter(userAdapter);
 
         //et on séléctionne le premier de la liste pour l'affichage:
-        mCallback.onUserSelected(listUser.get(0).getId());
+        //mCallback.onUserSelected(listUser.get(0).getId());
+        UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
+
+        if (userFragment != null) {
+            if(listUser.size()>0) {
+                mCallback.onUserSelected(listUser.get(0).getId());
+            } else {
+                mCallback.noUserSelected();
+            }
+        }
     }
 
     @Override

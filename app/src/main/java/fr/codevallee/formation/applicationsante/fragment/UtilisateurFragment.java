@@ -29,10 +29,12 @@ public class UtilisateurFragment extends Fragment  {
     private TextView tvEmail;
     private TextView tvTel;
     private TextView tvCv;
+    private TextView tvNoUser;
 
     private Button buttonModifier;
     private Button buttonSupprimer;
 
+    private int currentPosition=0;
     private User userSelected;
 
     //Communication avec la liste des utilisateurs:
@@ -55,10 +57,7 @@ public class UtilisateurFragment extends Fragment  {
         //On vérifie qu'il y a des args, si oui on met à jour la view avec l'user concerné
         if (args != null) {
             updateUserView(args.getInt("position"));
-        } /*else if (mCurrentPosition != -1) { //TODO s'occuper de mCurrentPosition
-            // Set article based on saved instance state defined during onCreateView
-            updateArticleView(mCurrentPosition);
-        }*/
+        }
     }
 
     @Override
@@ -85,6 +84,9 @@ public class UtilisateurFragment extends Fragment  {
         tvEmail = view.findViewById(R.id.tv_email);
         tvTel = view.findViewById(R.id.tv_tel);
         tvCv = view.findViewById(R.id.tv_cv);
+
+        //TextView pour l'affichage en cas d'absence d'utilisateur
+        tvNoUser = view.findViewById(R.id.tv_no_user);
 
         //Récupération des boutons:
         buttonModifier = view.findViewById(R.id.button_modifier);
@@ -137,6 +139,7 @@ public class UtilisateurFragment extends Fragment  {
         UserDAO userDAO = new UserDAO(userDataSource);
         userSelected = userDAO.read(userId);
 
+        setViewVisible(true);
         tvNomPrenom.setText(userSelected.getNom() + " " + userSelected.getPrenom());
         tvSexe.setText(userSelected.getSexe());
         tvMetier.setText(userSelected.getMetier());
@@ -144,5 +147,39 @@ public class UtilisateurFragment extends Fragment  {
         tvEmail.setText(userSelected.getMail());
         tvTel.setText(userSelected.getTel());
         tvCv.setText(userSelected.getCV());
+    }
+
+    public void showNoUser() {
+        setViewVisible(false);
+    }
+
+    public void setViewVisible (boolean visible) {
+        if (visible) {
+            tvNomPrenom.setVisibility(View.VISIBLE);
+            tvSexe.setVisibility(View.VISIBLE);
+            tvMetier.setVisibility(View.VISIBLE);
+            tvService.setVisibility(View.VISIBLE);
+            tvEmail.setVisibility(View.VISIBLE);
+            tvTel.setVisibility(View.VISIBLE);
+            tvCv.setVisibility(View.VISIBLE);
+
+            buttonModifier.setVisibility(View.VISIBLE);
+            buttonSupprimer.setVisibility(View.VISIBLE);
+
+            tvNoUser.setVisibility(View.INVISIBLE);
+        } else {
+            tvNomPrenom.setVisibility(View.INVISIBLE);
+            tvSexe.setVisibility(View.INVISIBLE);
+            tvMetier.setVisibility(View.INVISIBLE);
+            tvService.setVisibility(View.INVISIBLE);
+            tvEmail.setVisibility(View.INVISIBLE);
+            tvTel.setVisibility(View.INVISIBLE);
+            tvCv.setVisibility(View.INVISIBLE);
+
+            buttonModifier.setVisibility(View.INVISIBLE);
+            buttonSupprimer.setVisibility(View.INVISIBLE);
+
+            tvNoUser.setVisibility(View.VISIBLE);
+        }
     }
 }

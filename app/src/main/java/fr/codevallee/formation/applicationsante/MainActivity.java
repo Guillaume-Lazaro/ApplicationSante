@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import fr.codevallee.formation.applicationsante.fragment.ListeUtilisateurFragment;
 import fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment;
 
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Partie à moi (à mettre en premier)
-        if (findViewById(R.id.fragment_container) != null) { // Si smartphone:
+        //Gestion des fragments
+        if (findViewById(R.id.fragment_container) != null) { //Smartphone:
             if (savedInstanceState != null) {
                 return;
             }
@@ -34,13 +36,27 @@ public class MainActivity extends AppCompatActivity
             ListeUtilisateurFragment firstFragment = new ListeUtilisateurFragment();
             firstFragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
+        } else {    //Tablette:
+            //On récupére le fragment d'affichage de l'utilisateur
+            UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
+
+            //Récupération de la liste des utilisateurs et affichage du premier sur le fragment
+            UserDataSource userDataSource = new UserDataSource(this);
+            UserDAO userDAO = new UserDAO(userDataSource);
+            ArrayList<User>listUser = (ArrayList<User>) userDAO.readAll();
+
+            if(listUser.size()>0) {
+                userFragment.updateUserView(listUser.get(0).getId());
+            } else {
+                noUserSelected();
+            }
         }
 
         //ça c'est la barre tout en haut
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //ça c'est le truc qui s'ouvre à gauche
+        //ça c'est le tiroir qui s'ouvre à gauche
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
 
         //ça c'est le bouton burger:
@@ -50,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        //ça c'est juste le header du truc qui s'ouvre à gauche...
+        //ça c'est juste le header du drawer
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -74,16 +90,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        //Ici c'est le menu en haut à droite
+        //Ici c'est le menu en haut à droite ...
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // ... vide et inutile pour le moment
         if (id == R.id.action_settings) {
-            Log.d("Test","j'ai appuyé sur settings");
             return true;
         }
 
@@ -91,16 +102,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) { //Ptet falloir le virer ça du coup
+    public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        //TODO faire en sorte que ça reste pas appuyé...
         if (id == R.id.nav_options) {
             Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_aide) {
             Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_ajouter_user) {
+            Intent intent = new Intent(this, AddUserActivity.class);
             startActivity(intent);
         }
 
@@ -128,6 +141,16 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack(null);
 
             transaction.commit();
+        }
+    }
+
+    @Override
+    public void noUserSelected() {
+        UtilisateurFragment userFragment = (UtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_user);
+
+        if (userFragment != null) {
+            //Tablette:
+            userFragment.showNoUser();
         }
     }
 
