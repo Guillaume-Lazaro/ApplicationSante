@@ -26,18 +26,8 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
     OnHeadlineSelectedListener mCallback;
     private ArrayList<User> listUser;
 
-    @Override
-    public void refresh() {
-        UserDataSource userDataSource = new UserDataSource(getContext());
-        UserDAO userDAO = new UserDAO(userDataSource);
-
-        listUser = (ArrayList<User>) userDAO.readAll();
-        UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
-        setListAdapter(userAdapter);
-    }
-
     public interface OnHeadlineSelectedListener {
-        public void onUserSelected(int position);
+        public void onUserSelected(int userId);
     }
 
     @Override
@@ -98,6 +88,20 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
         });
 
         return view;
+    }
+
+    @Override
+    public void refresh() {
+        //On rafraichit la liste
+        UserDataSource userDataSource = new UserDataSource(getContext());
+        UserDAO userDAO = new UserDAO(userDataSource);
+
+        listUser = (ArrayList<User>) userDAO.readAll();
+        UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
+        setListAdapter(userAdapter);
+
+        //et on séléctionne le premier de la liste pour l'affichage:
+        mCallback.onUserSelected(listUser.get(0).getId());
     }
 
     @Override

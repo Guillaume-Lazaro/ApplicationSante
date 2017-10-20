@@ -119,6 +119,7 @@ public class UtilisateurFragment extends Fragment  {
                 alertDialogBuilder.setNegativeButton(R.string.non,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Pour le moment, on ne fait rien ici
                     }
                 });
 
