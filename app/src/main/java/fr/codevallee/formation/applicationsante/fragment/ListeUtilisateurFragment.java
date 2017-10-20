@@ -4,13 +4,20 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -21,10 +28,18 @@ import fr.codevallee.formation.applicationsante.UserAdapter;
 import fr.codevallee.formation.applicationsante.UserDAO;
 import fr.codevallee.formation.applicationsante.UserDataSource;
 
-public class ListeUtilisateurFragment extends ListFragment implements UtilisateurFragment.UserDeleted {
+public class ListeUtilisateurFragment extends ListFragment implements NavigationView.OnNavigationItemSelectedListener,UtilisateurFragment.UserDeleted {
 
     OnHeadlineSelectedListener mCallback;
     private ArrayList<User> listUser;
+
+    //Test:
+    private Toolbar toolbar;
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 
     public interface OnHeadlineSelectedListener {
         public void onUserSelected(int userId);
@@ -87,7 +102,26 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
             }
         });
 
+        //Ouiiiiiii!!!!!
+        this.toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        /*
+        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout_main);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this); */
+
         return view;
+    }
+
+    //Test:
+    public Toolbar getToolbar() {
+        return this.toolbar;
     }
 
     @Override

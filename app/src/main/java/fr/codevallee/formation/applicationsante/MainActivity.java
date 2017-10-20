@@ -25,20 +25,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Affichage de la navBar et de la toolBar:
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
         //Partie à moi (à mettre en premier)
         if (findViewById(R.id.fragment_container) != null) { // Si smartphone:
             if (savedInstanceState != null) {
@@ -50,17 +36,23 @@ public class MainActivity extends AppCompatActivity
             getFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
         }
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //ça c'est la barre tout en haut
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //ça c'est le truc qui s'ouvre à gauche
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+
+        //ça c'est le bouton burger:
+        //Toolbar toolbar = ((ListeUtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_list_user)).getToolbar();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //ça c'est juste le header du truc qui s'ouvre à gauche...
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
