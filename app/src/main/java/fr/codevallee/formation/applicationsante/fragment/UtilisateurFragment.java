@@ -2,8 +2,10 @@ package fr.codevallee.formation.applicationsante.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,15 +102,28 @@ public class UtilisateurFragment extends Fragment  {
         buttonSupprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO pop-up pour la confirmation de suppression
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setMessage(R.string.verification_suppression);
+                alertDialogBuilder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        UserDataSource userDataSource = new UserDataSource(getContext());
+                        UserDAO userDAO = new UserDAO(userDataSource);
+                        userDAO.delete(userSelected.getId());
 
+                        //Communication avec la liste:
+                        mCallback.refresh();
+                    }
+                });
 
-                UserDataSource userDataSource = new UserDataSource(getContext());
-                UserDAO userDAO = new UserDAO(userDataSource);
-                userDAO.delete(userSelected.getId());
+                alertDialogBuilder.setNegativeButton(R.string.non,new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
-                //Communication avec la liste:
-                mCallback.refresh();
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 

@@ -22,6 +22,7 @@
 
         <activity android:name=".AddUserActivity" />
         <activity android:name=".ModifyUserActivity" />
+        <activity android:name=".PreferencesActivity" />
 
     </application>
 

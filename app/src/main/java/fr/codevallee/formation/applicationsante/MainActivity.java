@@ -1,5 +1,6 @@
 package fr.codevallee.formation.applicationsante;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
@@ -70,24 +71,30 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        //Ici c'est le menu en haut à droite
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Log.d("Test","j'ai appuyé sur settings");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) { //Ptet falloir le virer ça du coup
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //TODO faire en sorte que ça reste pas appuyé...
         if (id == R.id.nav_options) {
-
+            Intent intent = new Intent(this, PreferencesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_aide) {
+            Log.d("Test","J'ai appuyé sur aide depuis ici!");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);

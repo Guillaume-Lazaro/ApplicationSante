@@ -30,8 +30,15 @@
 
     <string name="numero_incorrect">Le numéro entré est incorrect</string>
     <string name="champ_incorrect">Un des champs est vide ou incorrect</string>
+    <string name="verification_suppression">Êtes vous sur de vouloir supprimer ?</string>
+    <string name="oui">Oui</string>
+    <string name="non">Non</string>
+
     <string name="options">Options</string>
     <string name="aide">Aide</string>
+    <string name="preferences">Préférences</string>
+    <string name="liste_des_metiers">Liste des métiers</string>
+    <string name="ajouter_un_metier">Ajouter un métier</string>
 
     <string-array name="metiers">
         <item>Infirmier</item>

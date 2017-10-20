@@ -49,10 +49,10 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
         UserDAO userDAO = new UserDAO(userDataSource);
 
         //Remplissage test:
-        //User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
-        //User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
-        //userDAO.create(user1);
-        //userDAO.create(user2);
+        User user1 = new User("Jean","Patrick","Homme","Infirmier","Neurologie","jp@hmail.com","0102030405","Fait des trucs");
+        User user2 = new User("Lazaro","Guillaume","Homme","Médecin","Neurologie","gl@hmail.com","0607080910","Fait parfois des trucs");
+        userDAO.create(user1);
+        userDAO.create(user2);
 
         listUser = (ArrayList<User>) userDAO.readAll();
         UserAdapter userAdapter = new UserAdapter(getContext(), listUser);
@@ -102,8 +102,6 @@ public class ListeUtilisateurFragment extends ListFragment implements Utilisateu
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Log.d("Test","l="+l.toString()+" et v="+v.toString()+ " et pos="+position);
-
         // Send the event to the host activity
         User userSelected = listUser.get(position);     //Récupération de l'user sélectionné
         mCallback.onUserSelected(userSelected.getId()); //Envoi de l'id de l'user sélectionné au fragment d'affichage

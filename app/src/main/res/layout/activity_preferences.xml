@@ -1,0 +1,46 @@
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="fr.codevallee.formation.applicationsante.AddUserActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/liste_des_metiers"
+            android:textSize="20dp"/>
+
+        <ListView
+            android:id="@+id/lv_metiers"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </ListView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_ajouter_metier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/ajouter_un_metier"/>
+
+
+
+
+
+</android.support.v7.widget.LinearLayoutCompat>
