@@ -42,6 +42,7 @@
     <string name="aide">Aide</string>
     <string name="preferences">Préférences</string>
     <string name="retour">Retour</string>
+    <string name="aucun_utilisateur">Aucun utilisateur</string>
 
     <string-array name="metiers">
         <item>Infirmier</item>

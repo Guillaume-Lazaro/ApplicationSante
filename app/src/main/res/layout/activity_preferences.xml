@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:text="@string/preferences"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"/>
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/liste_des_metiers"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
         <ListView
             android:id="@+id/lv_metiers"
@@ -34,13 +34,25 @@
         </ListView>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button_ajouter_metier"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/ajouter_un_metier"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_annuler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/annuler"/>
+
+        <Button
+            android:id="@+id/button_ajouter_metier"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/ajouter_un_metier"/>
+    </LinearLayout>
+
 
 
 </android.support.v7.widget.LinearLayoutCompat>

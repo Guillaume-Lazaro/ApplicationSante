@@ -1,6 +1,5 @@
 package fr.codevallee.formation.applicationsante;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
     private EditText etTel;
     private EditText etCv;
     private Button buttonAdd;
+    private Button buttonCancel;
 
     private ArrayList<String> arrayMetier;
     private String[] arrayService;
@@ -51,6 +51,7 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
         etTel = (EditText) findViewById(R.id.et_tel);
         etCv = (EditText) findViewById(R.id.et_cv);
         buttonAdd = (Button) findViewById(R.id.button_ajouter);
+        buttonCancel = (Button) findViewById(R.id.button_annuler);
 
         //ça c'est pour le radio button:
         int selectedId = radioSexeGroup.getCheckedRadioButtonId();
@@ -78,17 +79,25 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
                 if (champsCorrects()) {
                     createUser();
-                    //Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
-                    //startActivity(intent);
-                    AddUserActivity.this.onBackPressed();
+                    Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    AddUserActivity.this.finish();
                 } else {
                     Toast.makeText(AddUserActivity.this, getResources().getString(R.string.champ_incorrect), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddUserActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
-    //Pour plus tard:
     public void createUser() {
         String nom,prenom,sexe,metier,service,mail,tel,cv;
         nom = etNom.getText().toString();
@@ -144,12 +153,9 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //Service sélectionné:
-        String item = parent.getItemAtPosition(position).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        //On verra si on met un truc là...
     }
 }

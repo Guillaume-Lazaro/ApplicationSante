@@ -1,6 +1,7 @@
 package fr.codevallee.formation.applicationsante;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +24,7 @@ public class PreferencesActivity extends AppCompatActivity{
     private ArrayList<String> listMetiers;
     private SharedPreferences spMetiers;
     private String metierEntre;
+    private Button buttonCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class PreferencesActivity extends AppCompatActivity{
         //Récupération des éléments de l'interface:
         listViewMetiers = (ListView) findViewById(R.id.lv_metiers);
         Button buttonAjouterMetier = (Button) findViewById(R.id.button_ajouter_metier);
+        buttonCancel = (Button) findViewById(R.id.button_annuler);
 
         //Récupération des sharedPreferences:
         spMetiers = getSharedPreferences("metiers",MODE_PRIVATE);
@@ -46,6 +49,14 @@ public class PreferencesActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 alertDialogMetier();
+            }
+        });
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PreferencesActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

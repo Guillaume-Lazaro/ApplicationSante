@@ -92,11 +92,24 @@
         android:textSize="20sp"
         android:inputType="text"/>
 
-    <Button
-        android:id="@+id/button_ajouter"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ajouter"
-        android:textSize="25sp"/>
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_annuler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/annuler"
+            android:textSize="25sp"/>
+
+        <Button
+            android:id="@+id/button_ajouter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ajouter"
+            android:textSize="25sp"/>
+    </LinearLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>

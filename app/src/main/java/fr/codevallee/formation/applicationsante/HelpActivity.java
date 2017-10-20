@@ -1,6 +1,7 @@
 package fr.codevallee.formation.applicationsante;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -37,9 +38,10 @@ public class HelpActivity extends AppCompatActivity{
         buttonRetour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HelpActivity.this.onBackPressed();
+                Intent intent = new Intent(HelpActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
-
     }
 }

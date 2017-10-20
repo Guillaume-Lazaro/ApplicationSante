@@ -6,14 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import fr.codevallee.formation.applicationsante.AddUserActivity;
 import fr.codevallee.formation.applicationsante.ModifyUserActivity;
 import fr.codevallee.formation.applicationsante.R;
 import fr.codevallee.formation.applicationsante.User;
@@ -34,7 +32,6 @@ public class UtilisateurFragment extends Fragment  {
     private Button buttonModifier;
     private Button buttonSupprimer;
 
-    private int currentPosition=0;
     private User userSelected;
 
     //Communication avec la liste des utilisateurs:
@@ -56,7 +53,7 @@ public class UtilisateurFragment extends Fragment  {
 
         //On vérifie qu'il y a des args, si oui on met à jour la view avec l'user concerné
         if (args != null) {
-            updateUserView(args.getInt("position"));
+            updateUserView(args.getInt("user_id"));
         }
     }
 
@@ -74,7 +71,7 @@ public class UtilisateurFragment extends Fragment  {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_utilisateur, container, false);
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
 
         //Récupération des TextViews:
         tvNomPrenom = view.findViewById(R.id.tv_nom_prenom_display);
@@ -98,6 +95,7 @@ public class UtilisateurFragment extends Fragment  {
                 Intent intent = new Intent(getActivity(), ModifyUserActivity.class);
                 intent.putExtra("user_id",userSelected.getId());
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -154,6 +152,8 @@ public class UtilisateurFragment extends Fragment  {
     }
 
     public void setViewVisible (boolean visible) {
+        //Méthode pour rendre tout invisible et afficher qu'il n'y a plus d'utilisateur, ou l'inverse
+
         if (visible) {
             tvNomPrenom.setVisibility(View.VISIBLE);
             tvSexe.setVisibility(View.VISIBLE);

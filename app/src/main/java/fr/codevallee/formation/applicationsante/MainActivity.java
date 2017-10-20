@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
             UserDAO userDAO = new UserDAO(userDataSource);
             ArrayList<User>listUser = (ArrayList<User>) userDAO.readAll();
 
+            //Si il reste des users dans la liste, on affiche le premier, sinon on signale qu'il ne faut rien afficher
             if(listUser.size()>0) {
                 userFragment.updateUserView(listUser.get(0).getId());
             } else {
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
 
         //ça c'est le bouton burger:
-        //Toolbar toolbar = ((ListeUtilisateurFragment) getFragmentManager().findFragmentById(R.id.fragment_list_user)).getToolbar();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -109,18 +109,21 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        //Gestion des boutons du drawer
         int id = item.getItemId();
 
         if (id == R.id.nav_options) {
             Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_aide) {
             Intent intent = new Intent(this, HelpActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.nav_ajouter_user) {
             Intent intent = new Intent(this, AddUserActivity.class);
             startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
@@ -138,7 +141,7 @@ public class MainActivity extends AppCompatActivity
             //Téléphone:
             UtilisateurFragment newUserFragment = new UtilisateurFragment();
             Bundle args = new Bundle();
-            args.putInt("position", userId);
+            args.putInt("user_id", userId);
             newUserFragment.setArguments(args);
 
             android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();

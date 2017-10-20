@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:name="fr.codevallee.formation.applicationsante.fragment.ListeUtilisateurFragment"
-        tools:layout="@layout/fragment_liste_utilisateur"/>
+        tools:layout="@layout/fragment_list_user"/>
 
     <fragment
         android:id="@+id/fragment_user"
@@ -20,6 +20,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:name="fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment"
-        tools:layout="@layout/fragment_utilisateur"/>
+        tools:layout="@layout/fragment_user"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

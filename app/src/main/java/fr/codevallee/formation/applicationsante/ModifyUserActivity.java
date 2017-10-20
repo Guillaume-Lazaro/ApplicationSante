@@ -32,6 +32,7 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
     private EditText etTel;
     private EditText etCv;
     private Button buttonModify;
+    private Button buttonCancel;
 
     private ArrayList<String> arrayMetier;
     private String[] arrayService;
@@ -53,6 +54,7 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
         etTel = (EditText) findViewById(R.id.et_tel);
         etCv = (EditText) findViewById(R.id.et_cv);
         buttonModify = (Button) findViewById(R.id.button_modifier_valider);
+        buttonCancel = (Button) findViewById(R.id.button_annuler);
 
         //ça c'est pour le radio button:
         int selectedId = radioSexeGroup.getCheckedRadioButtonId();
@@ -82,9 +84,19 @@ public class ModifyUserActivity extends AppCompatActivity implements AdapterView
                     modifyUser();
                     Intent intent = new Intent(ModifyUserActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(ModifyUserActivity.this, getResources().getString(R.string.champ_incorrect), Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ModifyUserActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
