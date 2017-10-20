@@ -2,6 +2,7 @@ package fr.codevallee.formation.applicationsante;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class AddUserActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -29,7 +33,7 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
     private EditText etCv;
     private Button buttonAdd;
 
-    private String[] arrayMetier;
+    private ArrayList<String> arrayMetier;
     private String[] arrayService;
 
     @Override
@@ -52,8 +56,11 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
         int selectedId = radioSexeGroup.getCheckedRadioButtonId();
         radioSexeButton = (RadioButton) findViewById(selectedId);
 
+        //Récupération de la liste des métiers dans les sharedPreferences:
+        SharedPreferences spMetiers = getSharedPreferences("metiers",MODE_PRIVATE);
+        arrayMetier = new ArrayList<>(spMetiers.getStringSet("metiersSet", new HashSet<String>()));
+
         //ça c'est pour l'auto complete text view:
-        arrayMetier = getResources().getStringArray(R.array.metiers);
         ArrayAdapter<String> metierAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, arrayMetier);
         actvMetier.setThreshold(1);
         actvMetier.setAdapter(metierAdapter);

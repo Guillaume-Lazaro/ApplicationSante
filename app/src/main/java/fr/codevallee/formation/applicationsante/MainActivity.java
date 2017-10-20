@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, PreferencesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_aide) {
-            Log.d("Test","J'ai appuyé sur aide depuis ici!");
+            Intent intent = new Intent(this, HelpActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
