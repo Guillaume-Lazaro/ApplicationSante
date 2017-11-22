@@ -12,15 +12,45 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", '"http://someurl/"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", '"http://someotherurl/"'
+        }
+        buildTest {
+            debuggable true
+            jniDebuggable false
+            renderscriptDebuggable false
+            minifyEnabled false
+        }
+    }
+
+    // Specifies two flavor dimensions.
+    flavorDimensions "normal", "minApi"
+
+    productFlavors {
+        paid {
+            dimension "minApi"
+            minSdkVersion 23
+            applicationId 'fr.codevallee.formation.anotherapplicationsante'
+            targetSdkVersion 24
+        }
+        flavor {
+            dimension "normal"
+            minSdkVersion 23
+            applicationId 'fr.codevallee.formation.anotherapplicationsante'
+            targetSdkVersion 26
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -29,5 +59,6 @@ dependencies {
     compile 'com.android.support:design:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'io.sentry:sentry-android:1.6.3'
     testCompile 'junit:junit:4.12'
 }

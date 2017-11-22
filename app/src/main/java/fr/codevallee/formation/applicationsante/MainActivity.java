@@ -1,5 +1,6 @@
 package fr.codevallee.formation.applicationsante;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 
 import fr.codevallee.formation.applicationsante.fragment.ListeUtilisateurFragment;
 import fr.codevallee.formation.applicationsante.fragment.UtilisateurFragment;
+import io.sentry.Sentry;
+import io.sentry.android.AndroidSentryClientFactory;
+
 
 public class MainActivity extends AppCompatActivity
         implements ListeUtilisateurFragment.OnHeadlineSelectedListener,
@@ -26,6 +30,21 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Partie pour Sentry:
+        Context ctx = this.getApplicationContext();
+
+        // Use the Sentry DSN (client key) from the Project Settings page on Sentry
+        String sentryDsn = "https://28c26253a0754e15973628fce0594ac4:3e8db579121e44e4b0bfd3079ed8fb33@sentry.io/247941";
+        Sentry.init(sentryDsn, new AndroidSentryClientFactory(ctx));
+
+        // Alternatively, if you configured your DSN in a `sentry.properties`
+        // file (see the configuration documentation).
+        //Sentry.init(new AndroidSentryClientFactory(ctx));
+        ////Jusqu'ici
+
+        //Test de release/debug:
+        Log.d("Test", BuildConfig.SERVER_URL);
 
         //Gestion des fragments
         if (findViewById(R.id.fragment_container) != null) { //Smartphone:
